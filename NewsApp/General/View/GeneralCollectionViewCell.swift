@@ -30,7 +30,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.text = "Title"
-        label.textColor = .systemBackground
+        label.textColor = .white
         
         return label
     }()
