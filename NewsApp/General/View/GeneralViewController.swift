@@ -41,6 +41,9 @@ class GeneralViewController: UIViewController {
         view.addSubview(searchBar)
         view.addSubview(collectionView)
         
+        collectionView.register(GeneralCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        
         setupConstraints()
     }
     
