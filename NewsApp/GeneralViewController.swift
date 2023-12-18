@@ -24,7 +24,10 @@ class GeneralViewController: UIViewController {
         
         return collectionView
     }()
-
+    
+    // MARK: - Properties
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +35,9 @@ class GeneralViewController: UIViewController {
         view.addSubview(searchBar)
         view.addSubview(collectionView)
     }
-
-
+    
+    // MARK: - Methods
+    
+    // MARK: - Private Methods
 }
 
