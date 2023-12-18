@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class GeneralViewController: UIViewController {
     
@@ -45,7 +46,14 @@ class GeneralViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setupConstraints() {
+        searchBar.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
         
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
     }
 }
 
