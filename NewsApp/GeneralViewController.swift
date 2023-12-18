@@ -31,13 +31,21 @@ class GeneralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        view.addSubview(searchBar)
-        view.addSubview(collectionView)
+        setupUI()
     }
     
     // MARK: - Methods
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        view.addSubview(searchBar)
+        view.addSubview(collectionView)
+        
+        setupConstraints()
+    }
     
     // MARK: - Private Methods
+    private func setupConstraints() {
+        
+    }
 }
 
