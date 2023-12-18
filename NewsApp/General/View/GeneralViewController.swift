@@ -21,6 +21,10 @@ class GeneralViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let width = (view.frame.width - 15) / 2
         layout.itemSize = CGSize(width: width, height: width)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        //layout.scrollDirection = .vertical
+        
                 
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - searchBar.frame.height), collectionViewLayout: layout)
         
@@ -39,7 +43,7 @@ class GeneralViewController: UIViewController {
         setupUI()
     }
     
-    // MARK: - Methods
+    // MARK: - Private Methods
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(searchBar)
@@ -50,8 +54,7 @@ class GeneralViewController: UIViewController {
         
         setupConstraints()
     }
-    
-    // MARK: - Private Methods
+
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -59,7 +62,8 @@ class GeneralViewController: UIViewController {
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(5)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
