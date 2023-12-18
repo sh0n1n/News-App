@@ -13,6 +13,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
        let view = UIImageView()
         
+        view.image = UIImage(named: "Image") ?? UIImage.add
         return view
     }()
     
