@@ -19,8 +19,9 @@ class GeneralViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 50, height: 50)
-        
+        let width = (view.frame.width - 15) / 2
+        layout.itemSize = CGSize(width: width, height: width)
+                
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - searchBar.frame.height), collectionViewLayout: layout)
         
         collectionView.dataSource = self
