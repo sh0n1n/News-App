@@ -20,8 +20,8 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     private lazy var blackView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = .systemBackground
-        view.alpha = 0
+        view.backgroundColor = .systemGray4
+        view.alpha = 0.5
         
         return view
     }()
@@ -61,8 +61,8 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         }
         
         blackView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(50)
+            make.leading.trailing.bottom.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
