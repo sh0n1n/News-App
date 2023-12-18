@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class GeneralCollectionViewCell: UICollectionViewCell {
     // MARK: - GUI Variables
@@ -31,14 +32,41 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         label.textColor = .systemBackground
         
         return label
-    }
+    }()
     
     // MARK: - Initializations
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Methods
+    private func setupUI() {
+        addSubview(imageView)
+        addSubview(blackView)
+        addSubview(titleLabel)
+        
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        imageView.snp.makeConstraints { make in
+            make.size.edges.equalToSuperview()
+        }
+        
+        blackView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.bottom.equalTo(blackView)
+            make.leading.trailing.equalTo(blackView).offset(5)
+        }
     }
 }
