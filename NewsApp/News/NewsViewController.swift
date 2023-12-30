@@ -16,4 +16,14 @@ final class NewsViewController: UIViewController {
         
         return view
     }()
+    
+    private lazy var contentView = UIView()
+    
+    private lazy var imageView: UIImageView = {
+        let view = UIImageView()
+        
+        view.image = UIImage(named: "image")
+        
+        return view
+    }()
 }
