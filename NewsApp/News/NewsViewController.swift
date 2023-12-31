@@ -22,7 +22,7 @@ final class NewsViewController: UIViewController {
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
         
-        view.image = UIImage(named: "image 1")
+        view.image = UIImage(named: "news_image")
         
         return view
     }()
