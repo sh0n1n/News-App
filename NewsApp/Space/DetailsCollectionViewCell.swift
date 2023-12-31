@@ -77,7 +77,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.leading.equalTo(imageView.snp.trailing).offset(5)
-            make.trailing.bottom.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
     }
 }
