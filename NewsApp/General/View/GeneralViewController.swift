@@ -41,6 +41,8 @@ class GeneralViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        collectionView.register(GeneralCollectionViewCell.self,
+                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
     }
     
     // MARK: - Private Methods
@@ -49,8 +51,7 @@ class GeneralViewController: UIViewController {
         view.addSubview(searchBar)
         view.addSubview(collectionView)
         
-        collectionView.register(GeneralCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        
         
         setupConstraints()
     }
