@@ -49,7 +49,7 @@ final class NewsViewController: UIViewController {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News AppVery Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App"
+        label.text = "Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News AppVery Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News App Very Long Description for News AppVery Long Description for News App"
         label.font = .systemFont(ofSize: 14)
         label.textColor = .darkGray
         label.numberOfLines = 0
