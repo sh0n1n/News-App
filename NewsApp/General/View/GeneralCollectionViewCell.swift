@@ -47,7 +47,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func set(article: ArticleResponseObject) {
+    func set(article: ArticleCellViewModel) {
         titleLabel.text = article.title
     }
     

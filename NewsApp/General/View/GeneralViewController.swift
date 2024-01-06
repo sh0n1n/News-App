@@ -35,13 +35,14 @@ class GeneralViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private let viewModel: GeneralViewModelProtocol
+    private var viewModel: GeneralViewModelProtocol
     
     // MARK: - Life Cycle
     init(viewModel: GeneralViewModelProtocol) {
         self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.setupViewModel()
         
-        super.init()
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +58,12 @@ class GeneralViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    private func setupViewModel() {
+        viewModel.reloadData = { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+    
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(searchBar)
