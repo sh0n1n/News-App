@@ -83,7 +83,7 @@ class GeneralViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension GeneralViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+        viewModel.articles.count
     }
     
     func collectionView(_ collectionView: UICollectionView,

@@ -22,6 +22,7 @@
 		8DB48AEC2B496E6300CD2FD8 /* GeneralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48AEB2B496E6300CD2FD8 /* GeneralViewModel.swift */; };
 		8DB48AEF2B49706300CD2FD8 /* NewsResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48AEE2B49706300CD2FD8 /* NewsResponseObject.swift */; };
 		8DB48AF12B49710C00CD2FD8 /* ArticleResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48AF02B49710C00CD2FD8 /* ArticleResponseObject.swift */; };
+		8DB48AF42B49731400CD2FD8 /* ArticleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48AF32B49731400CD2FD8 /* ArticleCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		8DB48AEB2B496E6300CD2FD8 /* GeneralViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewModel.swift; sourceTree = "<group>"; };
 		8DB48AEE2B49706300CD2FD8 /* NewsResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponseObject.swift; sourceTree = "<group>"; };
 		8DB48AF02B49710C00CD2FD8 /* ArticleResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleResponseObject.swift; sourceTree = "<group>"; };
+		8DB48AF32B49731400CD2FD8 /* ArticleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				8DB48AEB2B496E6300CD2FD8 /* GeneralViewModel.swift */,
+				8DB48AF32B49731400CD2FD8 /* ArticleCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				8DB48AEC2B496E6300CD2FD8 /* GeneralViewModel.swift in Sources */,
 				8DB48AEF2B49706300CD2FD8 /* NewsResponseObject.swift in Sources */,
 				8D10B5B92B2F0AD9006E8158 /* AppDelegate.swift in Sources */,
+				8DB48AF42B49731400CD2FD8 /* ArticleCellViewModel.swift in Sources */,
 				8D10B5CF2B2F0D20006E8158 /* SpaceViewController.swift in Sources */,
 				8DA029562B41A11C0029F6FF /* DetailsCollectionViewCell.swift in Sources */,
 			);
