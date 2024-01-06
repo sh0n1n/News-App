@@ -9,7 +9,12 @@ import Foundation
 
 struct ArticleCellViewModel {
     let title: String
-    let descroiption: String
+    let description: String
     let date: String
     
+    init(article: ArticleResponseObject) {
+        title = article.title
+        description = article.description
+        date = article.publishedAt
+    }
 }

@@ -46,6 +46,11 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Methods
+    func set(article: ArticleResponseObject) {
+        titleLabel.text = article.title
+    }
+    
     // MARK: - Private Methods
     private func setupUI() {
         addSubview(imageView)
