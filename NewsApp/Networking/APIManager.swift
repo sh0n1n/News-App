@@ -16,5 +16,11 @@ final class APIManager {
         let stringUrl = baseUrl + path + "?sources=nasa&language=en" + "&apiKey=\(apiKey)"
         
         let url = URL(string: stringUrl)
+        
+        let session = URLSession.shared.dataTask(with: url) { data, response, error in
+            <#code#>
+        }
+        
+        session.resume()
     }
 }
