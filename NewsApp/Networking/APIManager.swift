@@ -30,11 +30,11 @@ final class APIManager {
                                        error: Error?,
                                        completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
         if let error = error {
-            
+            completion(.failure(NetworkingError.networkingError(error)))
         } else if let data = data {
             
         } else {
-            
+            completion(.failure(NetworkingError.unknown))
         }
     }
 }
