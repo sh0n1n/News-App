@@ -9,12 +9,12 @@ import Foundation
 
 final class APIManager {
     private static let apiKey = "b9a66c0e7e0f4d58ba808ce8172032c1"
-    private static let baseUrl = "GET https://newsapi.org/v2/"
+    private static let baseUrl = "https://newsapi.org/v2/"
     private static let path = "everything"
     
     // Create URL Path and make request
     static func getNews(completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?sources=nasa&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = baseUrl + path + "?sources=cnn&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         

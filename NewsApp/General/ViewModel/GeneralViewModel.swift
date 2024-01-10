@@ -28,7 +28,9 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     
     private var articles: [ArticleResponseObject] = [] {
         didSet {
-            reloadData?()
+            DispatchQueue.main.async {
+                self.reloadData?()
+            }
         }
     }
     
@@ -47,7 +49,9 @@ final class GeneralViewModel: GeneralViewModelProtocol {
             case .success(let articles):
                 self?.articles = articles
             case .failure(let error):
-                self?.showError?(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self?.showError?(error.localizedDescription)
+                }
             }
         }
 }
