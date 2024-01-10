@@ -89,8 +89,8 @@ extension SpaceViewController: UICollectionViewDataSource {
 extension SpaceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(NewsViewController(),
-                                                 animated: true)
+//        navigationController?.pushViewController(NewsViewController(),
+//                                                 animated: true)
     }
 }
 
