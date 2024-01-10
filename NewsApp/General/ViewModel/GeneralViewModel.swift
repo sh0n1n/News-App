@@ -61,13 +61,21 @@ final class GeneralViewModel: GeneralViewModelProtocol {
 }
     
     private func loadImage(for row: Int) {
-        // TODO: Get imageData
-        guard let url = URL(string: articles[row].imageUrl),
-              let data = try? Data(contentsOf: url)else { return }
         
-        articles[row].imageData = data
-        reloadCell?(row)
-        
+//        guard let url = URL(string: articles[row].imageUrl),
+//              let data = try? Data(contentsOf: url)else { return }
+        APIManager.getImagedata(url: articles[row].imageUrl) { [weak self] result in
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    self?.articles[row].imageData = data
+                    self?.reloadCell?(row)
+                case .failure(let error):
+                    self?.showError?(error.localizedDescription)
+                }
+            }
+        }
     }
     
     private func convertTOCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {

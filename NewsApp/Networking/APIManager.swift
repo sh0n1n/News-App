@@ -18,8 +18,24 @@ final class APIManager {
         
         guard let url = URL(string: stringUrl) else { return }
         
-        let session = URLSession.shared.dataTask(with: url) { data, response, error in
+        let session = URLSession.shared.dataTask(with: url) { data, _, error in
             handleResponse(data: data, error: error, completion: completion)
+        }
+        
+        session.resume()
+    }
+    
+    static func getImagedata(url: String, completion: @escaping (Result<Data, Error>) -> ()) {
+        guard let url = URL(string: url) else { return }
+        
+        let session = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data {
+                completion(.success(data))
+            }
+            
+            if let error = error {
+                completion(.failure(error))
+            }
         }
         
         session.resume()
