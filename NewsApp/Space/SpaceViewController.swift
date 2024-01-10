@@ -29,20 +29,6 @@ class SpaceViewController: UIViewController {
         return collectionView
     }()
         
-    // MARK: - Properties
-    private var viewModel: SpaceViewModelProtocol
-    
-    // MARK: - Life Cycle
-    init(viewModel: SpaceViewModelProtocol) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-        self.setupViewModel()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,24 +38,9 @@ class SpaceViewController: UIViewController {
                                 forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         collectionView.register(DetailsCollectionViewCell.self,
                                 forCellWithReuseIdentifier: "DetailsCollectionViewCell")
-        viewModel.loadData()
     }
     
     // MARK: - Private Methods
-    private func setupViewModel() {
-        viewModel.reloadData = { [weak self] in
-            self?.collectionView.reloadData()
-        }
-        
-        viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
-        }
-        
-        viewModel.showError = { error in
-            print(error)
-        }
-    }
-    
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
@@ -89,44 +60,36 @@ class SpaceViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension SpaceViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.numberOfCells > 1 ? 0 : 1
+        2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.numberOfCells > 1 {
-            return section == 0 ? 1 : viewModel.numberOfCells - 1
-        }
-        
-        return viewModel.numberOfCells
+        section == 0 ? 1 : 15
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell: UICollectionViewCell?
         
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                                 for: indexPath) as? GeneralCollectionViewCell
-            let article = viewModel.getArticle(for: 0)
-            cell?.set(article: article)
-            
-            return cell ?? UICollectionViewCell()
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
                                                       for: indexPath) as? DetailsCollectionViewCell
-            
-            let article = viewModel.getArticle(for: indexPath.row + 1)
-            cell?.set(article: article)
-            return cell ?? UICollectionViewCell()
         }
+        return cell ?? UICollectionViewCell()
     }
+    
+    
 }
 
 // MARK: - UICollectionViewDelegate
 extension SpaceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
-        navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
+//        navigationController?.pushViewController(NewsViewController(),
+//                                                 animated: true)
     }
 }
 
