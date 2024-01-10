@@ -72,7 +72,6 @@ class SpaceViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        
         view.addSubview(collectionView)
         
         setupConstraints()

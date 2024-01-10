@@ -18,6 +18,8 @@
 		8D10B5D62B2FD905006E8158 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8D10B5D52B2FD905006E8158 /* SnapKit-Dynamic */; };
 		8D10B5DC2B2FDB2E006E8158 /* GeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D10B5DB2B2FDB2E006E8158 /* GeneralCollectionViewCell.swift */; };
 		8D2F808D2B4F2FA4003866CE /* SpaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F808C2B4F2FA4003866CE /* SpaceViewModel.swift */; };
+		8D2F80902B4F4527003866CE /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8D2F808F2B4F4527003866CE /* SnapKit */; };
+		8D2F80922B4F4527003866CE /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 8D2F80912B4F4527003866CE /* SnapKit-Dynamic */; };
 		8D49D0B82B4DD83A00395125 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D49D0B72B4DD83A00395125 /* APIManager.swift */; };
 		8D49D0BB2B4DE5E400395125 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D49D0BA2B4DE5E400395125 /* NetworkingError.swift */; };
 		8D49D0BD2B4E41E300395125 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D49D0BC2B4E41E300395125 /* NewsViewModel.swift */; };
@@ -57,8 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D2F80902B4F4527003866CE /* SnapKit in Frameworks */,
 				8D10B5D42B2FD905006E8158 /* SnapKit in Frameworks */,
 				8D10B5D62B2FD905006E8158 /* SnapKit-Dynamic in Frameworks */,
+				8D2F80922B4F4527003866CE /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +210,8 @@
 			packageProductDependencies = (
 				8D10B5D32B2FD905006E8158 /* SnapKit */,
 				8D10B5D52B2FD905006E8158 /* SnapKit-Dynamic */,
+				8D2F808F2B4F4527003866CE /* SnapKit */,
+				8D2F80912B4F4527003866CE /* SnapKit-Dynamic */,
 			);
 			productName = NewsApp;
 			productReference = 8D10B5B52B2F0AD9006E8158 /* NewsApp.app */;
@@ -509,6 +515,16 @@
 			productName = SnapKit;
 		};
 		8D10B5D52B2FD905006E8158 /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D10B5D22B2FD904006E8158 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+		8D2F808F2B4F4527003866CE /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D10B5D22B2FD904006E8158 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		8D2F80912B4F4527003866CE /* SnapKit-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8D10B5D22B2FD904006E8158 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = "SnapKit-Dynamic";
