@@ -42,7 +42,6 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     
     func getArticle(for row: Int) -> ArticleCellViewModel {
         let article = articles[row]
-        loadImage(for: row)
         return article
     }
     
@@ -52,41 +51,45 @@ final class GeneralViewModel: GeneralViewModelProtocol {
             switch result {
             case .success(let articles):
                 self.articles = self.convertTOCellViewModel(articles)
+                self.loadImage()
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.showError?(error.localizedDescription)
                 }
             }
         }
-}
+    }
     
-    private func loadImage(for row: Int) {
+    private func loadImage() {
         
-//        guard let url = URL(string: articles[row].imageUrl),
-//              let data = try? Data(contentsOf: url)else { return }
-        APIManager.getImagedata(url: articles[row].imageUrl) { [weak self] result in
-            
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self?.articles[row].imageData = data
-                    self?.reloadCell?(row)
-                case .failure(let error):
-                    self?.showError?(error.localizedDescription)
+        //        guard let url = URL(string: articles[row].imageUrl),
+        //              let data = try? Data(contentsOf: url)else { return }
+        for (index, article) in articles.enumerated() {
+            APIManager.getImageData(url: article.imageUrl) { [weak self] result in
+                
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let data):
+                        self?.articles[index].imageData = data
+                        self?.reloadCell?(index)
+                    case .failure(let error):
+                        self?.showError?(error.localizedDescription)
+                    }
                 }
             }
         }
     }
-    
-    private func convertTOCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
-        return articles.map {
-            ArticleCellViewModel(article: $0)
+        
+        private func convertTOCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
+            return articles.map {
+                ArticleCellViewModel(article: $0)
+            }
+        }
+        
+        private func setupMockObjects() {
+            articles = [
+                ArticleCellViewModel(article: ArticleResponseObject(title: "First Object Title", description: "First Object Description", urlToImage: "...", date: "25.12.2023"))
+            ]
         }
     }
-    
-    private func setupMockObjects() {
-        articles = [
-            ArticleCellViewModel(article: ArticleResponseObject(title: "First Object Title", description: "First Object Description", urlToImage: "...", date: "25.12.2023"))
-        ]
-    }
-}
+

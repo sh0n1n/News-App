@@ -25,7 +25,7 @@ final class APIManager {
         session.resume()
     }
     
-    static func getImagedata(url: String, completion: @escaping (Result<Data, Error>) -> ()) {
+    static func getImageData(url: String, completion: @escaping (Result<Data, Error>) -> ()) {
         guard let url = URL(string: url) else { return }
         
         let session = URLSession.shared.dataTask(with: url) { data, _, error in
