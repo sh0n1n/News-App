@@ -8,7 +8,7 @@
 import Foundation
 
 final class APIManager {
-    private static let apiKey = ""
+    private static let apiKey = "b9a66c0e7e0f4d58ba808ce8172032c1"
     private static let baseUrl = "GET https://newsapi.org/v2/"
     private static let path = "everything"
     
@@ -19,7 +19,7 @@ final class APIManager {
         guard let url = URL(string: stringUrl) else { return }
         
         let session = URLSession.shared.dataTask(with: url) { data, response, error in
-            handleResponse(data: data, error: error, completion)
+            handleResponse(data: data, error: error, completion: completion)
         }
         
         session.resume()
@@ -32,7 +32,13 @@ final class APIManager {
         if let error = error {
             completion(.failure(NetworkingError.networkingError(error)))
         } else if let data = data {
-            
+            do {
+                let model = try JSONDecoder().decode(NewsResponseObject.self, from: data)
+                completion(.success(model.articles))
+            }
+            catch  let decodeError {
+                completion(.failure(decodeError))
+            }
         } else {
             completion(.failure(NetworkingError.unknown))
         }
