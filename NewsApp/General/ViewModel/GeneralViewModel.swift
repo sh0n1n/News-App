@@ -46,7 +46,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     }
     
     private func loadData() {
-        APIManager.getNews { [weak self] result in
+        APIManager.getNews(from: .gereral) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let articles):
