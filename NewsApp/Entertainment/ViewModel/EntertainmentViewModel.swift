@@ -11,11 +11,9 @@ protocol EntertainmentViewModelProtocol {
     var reloadData: (() -> Void)? { get set}
     var showError: ((String) -> Void)? { get set}
     var reloadCell: ((Int) -> Void)? { get set }
-    
-    var numberOfCells: Int { get }
-    
+    var articles: [TableCollectionViewSection] { get }
+        
     func loadData()
-    func getArticle(for row: Int) -> ArticleCellViewModel
 }
 
 final class EntertainmentViewModel: EntertainmentViewModelProtocol {
@@ -24,20 +22,12 @@ final class EntertainmentViewModel: EntertainmentViewModelProtocol {
     var showError: ((String) -> Void)?
     
     // MARK: - Properties
-    var numberOfCells: Int {
-        articles.count
-    }
-    
-    private var articles: [ArticleCellViewModel] = [] {
+    private(set) var articles: [TableCollectionViewSection] = [] {
         didSet {
             DispatchQueue.main.async {
                 self.reloadData?()
             }
         }
-    }
-    
-    func getArticle(for row: Int) -> ArticleCellViewModel {
-        return articles[row]
     }
     
     func loadData() {
@@ -76,13 +66,16 @@ final class EntertainmentViewModel: EntertainmentViewModelProtocol {
         }
     }
     
-    private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
-        return articles.map { ArticleCellViewModel(article: $0)}
+    private func convertToCellViewModel(_ articles: [ArticleResponseObject]) {
+        var viewModels = articles.map { ArticleCellViewModel(article: $0)}
+        let firstSection = TableCollectionViewSection(items: [viewModels.removeFirst()])
+        let secondSection = TableCollectionViewSection(items: viewModels)
+        self.articles = [firstSection, secondSection]
     }
     
     private func setupMockObjects() {
         articles = [
-            ArticleCellViewModel(article: ArticleResponseObject(title: "First", description: "First descriptio", urlToImage: "...", date: "25.12.2023"))
+            TableCollectionViewSection(items:[ArticleCellViewModel(article: ArticleResponseObject(title: "First", description: "First descriptio", urlToImage: "...", date: "25.12.2023"))])
         ]
     }
 }
