@@ -65,7 +65,8 @@ class GeneralViewController: UIViewController {
         }
         
         viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: indexPath])
+            self?.collectionView.reloadItems(at: [IndexPath(row: row,
+                                                            section: 0)])
             
         }
         
