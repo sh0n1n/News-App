@@ -32,7 +32,6 @@ class EntertainmentViewController: UIViewController {
     //MARK: - Properties
     private var viewModel: EntertainmentViewModelProtocol
     
-    
     //MARK: - Life Cycle
     init(viewModel: EntertainmentViewModelProtocol) {
         self.viewModel = viewModel
@@ -87,31 +86,27 @@ class EntertainmentViewController: UIViewController {
 //MARK: - UICollectionViewDataSource
 extension EntertainmentViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView) -> Int {
-        viewModel.numberOfCells > 1 ? 2 : 1
+        viewModel.articles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.numberOfCells > 1 {
-            return section == 0 ? 1 : viewModel.numberOfCells - 1
-        }
-        
-        return viewModel.numberOfCells
+        viewModel.articles[section].items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
+        
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
             
-            let article = viewModel.getArticle(for: 0)
             cell?.set(article: article)
             
             return cell ?? UICollectionViewCell()
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", for: indexPath) as? DetailsCollectionViewCell
             
-            let article = viewModel.getArticle(for: indexPath.row + 1)
             cell?.set(article: article)
-            
+
             return cell ?? UICollectionViewCell()
         }
     }
@@ -120,7 +115,7 @@ extension EntertainmentViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension EntertainmentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
+        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
 }
