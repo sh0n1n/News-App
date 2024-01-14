@@ -41,8 +41,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     }
     
     func getArticle(for row: Int) -> ArticleCellViewModel {
-        let article = articles[row]
-        return article
+        return articles[row]
     }
     
     private func loadData() {
@@ -50,7 +49,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
             guard let self = self else { return }
             switch result {
             case .success(let articles):
-                self.articles = self.convertTOCellViewModel(articles)
+                self.articles = self.convertToCellViewModel(articles)
                 self.loadImage()
             case .failure(let error):
                 DispatchQueue.main.async {
@@ -80,7 +79,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
         }
     }
         
-        private func convertTOCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
+        private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
             return articles.map {
                 ArticleCellViewModel(article: $0)
             }

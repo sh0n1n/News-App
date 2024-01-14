@@ -9,13 +9,14 @@ import UIKit
 import SnapKit
 
 class GeneralViewController: UIViewController {
-    
-    // MARK: - GUI Variables
+
+    //MARK: - GUI Variables
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         
         return searchBar
     }()
+    
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -23,26 +24,26 @@ class GeneralViewController: UIViewController {
         layout.itemSize = CGSize(width: width, height: width)
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
-        //layout.scrollDirection = .vertical
         
-                
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - searchBar.frame.height), collectionViewLayout: layout)
-        
+        let collectionView = UICollectionView(frame: CGRect(x: 0,
+                                                            y: 0,
+                                                            width: view.frame.width,
+                                                            height: view.frame.height - searchBar.frame.height),
+                                              collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         return collectionView
     }()
     
-    // MARK: - Properties
+    //MARK: - Properties
     private var viewModel: GeneralViewModelProtocol
     
-    // MARK: - Life Cycle
+    
+    //MARK: - Life Cycle
     init(viewModel: GeneralViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.setupViewModel()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -52,37 +53,37 @@ class GeneralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        
         setupUI()
-        collectionView.register(GeneralCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
     }
-    
-    // MARK: - Private Methods
+
+    //MARK: - Private methods
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             self?.collectionView.reloadData()
         }
         
         viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+            self?.collectionView.reloadItems(at: [IndexPath(row: row,
+                                                            section: 0)])
+            
         }
         
         viewModel.showError = { error in
-            // TODO: show alert with error
+            // TODO: show allert
             print(error)
         }
     }
     
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(collectionView)
         
-        
-        
         setupConstraints()
     }
-
+    
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -96,29 +97,26 @@ class GeneralViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension GeneralViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.numberOfCells
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
-                                                            for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell()}
+                                                            for: indexPath)
+                as? GeneralCollectionViewCell else { return UICollectionViewCell() }
         
         let article = viewModel.getArticle(for: indexPath.row)
         cell.set(article: article)
-        
         return cell
     }
-    
-    
 }
 
-// MARK: - UICollectionViewDelegate
+//MARK: - UICollectionViewDelegate
 extension GeneralViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let article = viewModel.getArticle(for: indexPath.row)
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }

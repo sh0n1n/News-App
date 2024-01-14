@@ -9,33 +9,40 @@ import UIKit
 import SnapKit
 
 class SpaceViewController: UIViewController {
-    
-    // MARK: - GUI Variables
+
+    //MARK: - GUI Variables
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-       
         
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
-                
-        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height), collectionViewLayout: layout)
-        
+        let collectionView = UICollectionView(frame: CGRect(x: 0,
+                                                            y: 0,
+                                                            width: view.frame.width,
+                                                            height: view.frame.height),
+                                              collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
         
         return collectionView
     }()
-        
-    // MARK: - Properties
+    
+    //MARK: - Properties
     private var viewModel: SpaceViewModelProtocol
     
-    // MARK: - Life Cycle
+    
+    //MARK: - Life Cycle
     init(viewModel: SpaceViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        setupUI()
+        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
+        
+        viewModel.loadData()
         self.setupViewModel()
     }
     
@@ -43,29 +50,20 @@ class SpaceViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupUI()
-        collectionView.register(GeneralCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        collectionView.register(DetailsCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "DetailsCollectionViewCell")
-        viewModel.loadData()
-    }
-    
-    // MARK: - Private Methods
+    //MARK: - Private methods
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             self?.collectionView.reloadData()
         }
         
         viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+            self?.collectionView.reloadItems(at: [IndexPath(row: row,
+                                                            section: 0)])
+            
         }
         
         viewModel.showError = { error in
+            // TODO: show allert
             print(error)
         }
     }
@@ -76,20 +74,20 @@ class SpaceViewController: UIViewController {
         
         setupConstraints()
     }
-
+    
     private func setupConstraints() {
+        
         collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(5)
-            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
 
-// MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension SpaceViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.numberOfCells > 1 ? 0 : 1
+    func collectionView(_ collectionView: UICollectionView) -> Int {
+        viewModel.numberOfCells > 1 ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -100,43 +98,41 @@ extension SpaceViewController: UICollectionViewDataSource {
         return viewModel.numberOfCells
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
-                                                                for: indexPath) as? GeneralCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
+            
             let article = viewModel.getArticle(for: 0)
             cell?.set(article: article)
             
             return cell ?? UICollectionViewCell()
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
-                                                      for: indexPath) as? DetailsCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell", for: indexPath) as? DetailsCollectionViewCell
             
             let article = viewModel.getArticle(for: indexPath.row + 1)
             cell?.set(article: article)
+            
             return cell ?? UICollectionViewCell()
         }
     }
 }
 
-// MARK: - UICollectionViewDelegate
+//MARK: - UICollectionViewDelegate
 extension SpaceViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+//MARK: - UICollectionViewDelegateFlowLayout
 extension SpaceViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectinViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        let firstItemSize = CGSize(width: width, height: width)
-        let secondItemSize = CGSize(width: width, height: 100)
+        let firstSectionItemSize = CGSize(width: width, height: width)
+        let secondSectionItemSize = CGSize(width: width, height: width)
         
-        return indexPath.section == 0 ? firstItemSize : secondItemSize
+        return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
     }
 }
+

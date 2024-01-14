@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ArticleCellViewModel {
+final
+class ArticleCellViewModel: TableCollectionViewItemsProtocol {
     let title: String
     let description: String
     let date: String
@@ -16,8 +17,8 @@ struct ArticleCellViewModel {
     
     init(article: ArticleResponseObject) {
         title = article.title
-        description = article.description
+        description = article.description ?? ""
         date = article.date
-        imageUrl = article.urlToImage
+        imageUrl = article.urlToImage ?? ""
     }
 }

@@ -2,21 +2,20 @@
 //  SpaceViewModel.swift
 //  NewsApp
 //
-//  Created by Melkor on 1/10/24.
+//  Created by Melkor on 1/14/24.
 //
 
 import Foundation
 
 protocol SpaceViewModelProtocol {
-    var reloadData: (() -> Void)? { get set }
-    var showError: ((String) -> Void)? { get set }
+    var reloadData: (() -> Void)? { get set}
+    var showError: ((String) -> Void)? { get set}
     var reloadCell: ((Int) -> Void)? { get set }
     
     var numberOfCells: Int { get }
     
     func loadData()
     func getArticle(for row: Int) -> ArticleCellViewModel
-    
 }
 
 final class SpaceViewModel: SpaceViewModelProtocol {
@@ -41,10 +40,10 @@ final class SpaceViewModel: SpaceViewModelProtocol {
         return articles[row]
     }
     
-     func loadData() {
+    func loadData() {
         print(#function)
         
-        APIManager.getNews(from: .space) { [weak self] result in
+        APIManager.getNews(from: .space) { [weak self ] result in
             guard let self = self else { return }
             
             switch result {
@@ -60,7 +59,7 @@ final class SpaceViewModel: SpaceViewModelProtocol {
     }
     
     private func loadImage() {
-        for (index, article) in articles.enumerated() {
+        for (index,article) in articles.enumerated() {
             APIManager.getImageData(url: article.imageUrl) { [weak self] result in
                 
                 DispatchQueue.main.async {
@@ -75,16 +74,14 @@ final class SpaceViewModel: SpaceViewModelProtocol {
             }
         }
     }
-        
-        private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
-            return articles.map {
-                ArticleCellViewModel(article: $0)
-            }
-        }
-        
-        private func setupMockObjects() {
-            articles = [
-                ArticleCellViewModel(article: ArticleResponseObject(title: "First Object Title", description: "First Object Description", urlToImage: "...", date: "25.12.2023"))
-            ]
-        }
+    
+    private func convertToCellViewModel(_ articles: [ArticleResponseObject]) -> [ArticleCellViewModel] {
+        return articles.map { ArticleCellViewModel(article: $0)}
     }
+    
+    private func setupMockObjects() {
+        articles = [
+            ArticleCellViewModel(article: ArticleResponseObject(title: "First", description: "First descriptio", urlToImage: "...", date: "25.12.2023"))
+        ]
+    }
+}
