@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SpaceViewModelProtocol {
+protocol EntertainmentViewModelProtocol {
     var reloadData: (() -> Void)? { get set}
     var showError: ((String) -> Void)? { get set}
     var reloadCell: ((Int) -> Void)? { get set }
@@ -18,7 +18,7 @@ protocol SpaceViewModelProtocol {
     func getArticle(for row: Int) -> ArticleCellViewModel
 }
 
-final class SpaceViewModel: SpaceViewModelProtocol {
+final class EntertainmentViewModel: EntertainmentViewModelProtocol {
     var reloadData: (() -> Void)?
     var reloadCell: ((Int) -> Void)?
     var showError: ((String) -> Void)?
@@ -43,7 +43,7 @@ final class SpaceViewModel: SpaceViewModelProtocol {
     func loadData() {
         print(#function)
         
-        APIManager.getNews(from: .space) { [weak self ] result in
+        APIManager.getNews(from: .entertainment) { [weak self ] result in
             guard let self = self else { return }
             
             switch result {

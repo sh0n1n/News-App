@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SpaceViewController: UIViewController {
+class EntertainmentViewController: UIViewController {
 
     //MARK: - GUI Variables
     private lazy var collectionView: UICollectionView = {
@@ -30,11 +30,11 @@ class SpaceViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    private var viewModel: SpaceViewModelProtocol
+    private var viewModel: EntertainmentViewModelProtocol
     
     
     //MARK: - Life Cycle
-    init(viewModel: SpaceViewModelProtocol) {
+    init(viewModel: EntertainmentViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
@@ -85,7 +85,7 @@ class SpaceViewController: UIViewController {
 }
 
 //MARK: - UICollectionViewDataSource
-extension SpaceViewController: UICollectionViewDataSource {
+extension EntertainmentViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView) -> Int {
         viewModel.numberOfCells > 1 ? 2 : 1
     }
@@ -118,7 +118,7 @@ extension SpaceViewController: UICollectionViewDataSource {
 }
 
 //MARK: - UICollectionViewDelegate
-extension SpaceViewController: UICollectionViewDelegate {
+extension EntertainmentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
@@ -126,7 +126,7 @@ extension SpaceViewController: UICollectionViewDelegate {
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension SpaceViewController: UICollectionViewDelegateFlowLayout {
+extension EntertainmentViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
         let firstSectionItemSize = CGSize(width: width, height: width)

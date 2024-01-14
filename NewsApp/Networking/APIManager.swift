@@ -9,8 +9,8 @@ import Foundation
 
 final class APIManager {
     enum Category: String {
-        case gereral = "general"
-        case space = "space"
+        case general = "general"
+        case entertainment = "entertainment"
         case technology = "technology"
     }
     

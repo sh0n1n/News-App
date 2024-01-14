@@ -20,7 +20,7 @@ final class TabBarController: UITabBarController {
         
         viewControllers = [
             setupNavigationController(rootViewController: GeneralViewController(viewModel: GeneralViewModel()), title: "General", image: UIImage(systemName: "newspaper") ?? UIImage.add),
-            setupNavigationController(rootViewController: SpaceViewController(viewModel: SpaceViewModel()), title: "Space", image: UIImage(systemName: "star") ?? UIImage.add),
+            setupNavigationController(rootViewController: EntertainmentViewController(viewModel: EntertainmentViewModel()), title: "Entertainment", image: UIImage(systemName: "gamecontroller") ?? UIImage.add),
             setupNavigationController(rootViewController: TechViewController(), title: "Technology", image: UIImage(systemName: "gyroscope") ?? UIImage.add)
             ]
     }

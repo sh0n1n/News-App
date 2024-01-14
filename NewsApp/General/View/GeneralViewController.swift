@@ -54,9 +54,8 @@ class GeneralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        
         setupUI()
+        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
     }
 
     //MARK: - Private methods
@@ -66,8 +65,7 @@ class GeneralViewController: UIViewController {
         }
         
         viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row,
-                                                            section: 0)])
+            self?.collectionView.reloadItems(at: indexPath])
             
         }
         
