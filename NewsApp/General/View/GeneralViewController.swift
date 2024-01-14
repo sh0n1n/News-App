@@ -32,6 +32,7 @@ class GeneralViewController: UIViewController {
                                               collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         return collectionView
     }()
     
