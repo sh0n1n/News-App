@@ -54,8 +54,7 @@ final class APIManager {
         private static func handleResponse(data: Data?,
                                            error: Error?,
                                            completion: @escaping (Result<[ArticleResponseObject],Error>) -> ()) {
-            print(error ?? "hey")
-            print(error ?? "EEE")
+           
             if let error = error {
                 completion(.failure(NetworkingError.networkingError(error)))
             } else if let data = data {
