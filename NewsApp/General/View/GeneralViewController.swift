@@ -77,7 +77,7 @@ class GeneralViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(searchBar)
         view.addSubview(collectionView)
         

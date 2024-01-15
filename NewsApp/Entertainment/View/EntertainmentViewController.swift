@@ -68,7 +68,7 @@ class EntertainmentViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGroupedBackground
         view.addSubview(collectionView)
         
         setupConstraints()
@@ -130,4 +130,3 @@ extension EntertainmentViewController: UICollectionViewDelegateFlowLayout {
         return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
     }
 }
-
