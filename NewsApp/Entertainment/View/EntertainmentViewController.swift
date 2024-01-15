@@ -116,14 +116,13 @@ extension EntertainmentViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension EntertainmentViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == (viewModel.sections[1].items.count - 12) {
-            debugPrint(#function)
             viewModel.loadData()
         }
     }
