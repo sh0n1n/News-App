@@ -87,7 +87,8 @@ final class NewsViewController: UIViewController {
         descriptionLabel.text = viewModel.descriptioon
         dateLabel.text = viewModel.date
         
-        if let data = viewModel.imageData, let image = UIImage(data: data){
+        if let data = viewModel.imageData,
+           let image = UIImage(data: data) {
             imageView.image = image
         } else {
             imageView.image = UIImage(named: "image")

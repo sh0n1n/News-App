@@ -30,23 +30,27 @@ class EntertainmentViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    private var viewModel: EntertainmentViewModelProtocol
+    private var viewModel: NewsListViewModelProtocol
     
     //MARK: - Life Cycle
-    init(viewModel: EntertainmentViewModelProtocol) {
+    init(viewModel: NewsListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.setupViewModel()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         setupUI()
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
         
         viewModel.loadData()
-        self.setupViewModel()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Private methods
@@ -55,9 +59,8 @@ class EntertainmentViewController: UIViewController {
             self?.collectionView.reloadData()
         }
         
-        viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row,
-                                                            section: 0)])
+        viewModel.reloadCell = { [weak self] indexPath in
+            self?.collectionView.reloadItems(at: [indexPath])
             
         }
         
@@ -85,16 +88,15 @@ class EntertainmentViewController: UIViewController {
 
 //MARK: - UICollectionViewDataSource
 extension EntertainmentViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView) -> Int {
-        viewModel.articles.count
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        viewModel.sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.articles[section].items.count
+        viewModel.sections[section].items.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return UICollectionViewCell() }
         
         if indexPath.section == 0 {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell
@@ -115,8 +117,15 @@ extension EntertainmentViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension EntertainmentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let article = viewModel.articles[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == (viewModel.sections[1].items.count - 12) {
+            debugPrint(#function)
+            viewModel.loadData()
+        }
     }
 }
 
@@ -125,7 +134,7 @@ extension EntertainmentViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
         let firstSectionItemSize = CGSize(width: width, height: width)
-        let secondSectionItemSize = CGSize(width: width, height: width)
+        let secondSectionItemSize = CGSize(width: width, height: 100)
         
         return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
     }
