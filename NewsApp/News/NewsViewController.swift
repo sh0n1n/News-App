@@ -99,7 +99,7 @@ final class NewsViewController: UIViewController {
     
     private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
-            make .edges.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         contentView.snp.makeConstraints { make in
