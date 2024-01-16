@@ -14,6 +14,8 @@ class GeneralViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         
+        searchBar.delegate = self
+        
         return searchBar
     }()
     
@@ -132,5 +134,14 @@ extension GeneralViewController: UICollectionViewDelegate {
         if indexPath.row == (viewModel.sections[indexPath.section].items.count - 12) {
             viewModel.loadData()
         }
+    }
+}
+
+// MARK:- UISearchBarDelegate
+extension GeneralViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        
+        viewModel.
     }
 }
