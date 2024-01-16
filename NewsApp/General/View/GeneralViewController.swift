@@ -58,7 +58,7 @@ class GeneralViewController: UIViewController {
         
         setupUI()
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        viewModel.loadData()
+        viewModel.loadData(searchText: nil)
     }
 
     //MARK: - Private methods
@@ -132,7 +132,7 @@ extension GeneralViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == (viewModel.sections[indexPath.section].items.count - 12) {
-            viewModel.loadData()
+            viewModel.loadData(searchText: searchBar.text)
         }
     }
 }
@@ -142,6 +142,6 @@ extension GeneralViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         
-        viewModel.
+        viewModel.loadData(searchText: text)
     }
 }

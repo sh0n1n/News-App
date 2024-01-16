@@ -13,7 +13,7 @@ protocol NewsListViewModelProtocol {
     var reloadCell: ((IndexPath) -> Void)? { get set }
     var sections: [TableCollectionViewSection] { get }
         
-    func loadData()
+    func loadData(searchText: String?)
 }
 
 class NewsListViewModel: NewsListViewModelProtocol {
@@ -30,10 +30,12 @@ class NewsListViewModel: NewsListViewModelProtocol {
         }
     }
      var page = 0
+    var searchText: String? = nil
     
     // MARK: - Methods
-    func loadData() {
+    func loadData(searchText: String? = nil) {
         page += 1
+        self.searchText = searchText
     }
     
      func handleResult(_ result: Result<[ArticleResponseObject], Error>) {

@@ -8,8 +8,8 @@
 import Foundation
 
 final class EntertainmentViewModel: NewsListViewModel {
-    override func loadData() {
-        super.loadData()
+    override func loadData(searchText: String?) {
+        super.loadData(searchText: searchText)
         
         APIManager.getNews(from: .entertainment, page: page) { [weak self ] result in
             self?.handleResult(result)
