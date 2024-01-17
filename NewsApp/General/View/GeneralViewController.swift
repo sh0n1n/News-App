@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class GeneralViewController: UIViewController {
-
+    
     //MARK: - GUI Variables
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -59,9 +59,18 @@ class GeneralViewController: UIViewController {
         setupUI()
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         viewModel.loadData(searchText: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.addGestureRecognizer(tapGesture)
+        }
     }
-
+    
     //MARK: - Private methods
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             self?.collectionView.reloadData()
@@ -123,21 +132,27 @@ extension GeneralViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension GeneralViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else {
-            return
-        }
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return  }
+        
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == (viewModel.sections[indexPath.section].items.count - 12) {
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        if indexPath.row == (viewModel.sections[indexPath.section].items.count - 15) {
             viewModel.loadData(searchText: searchBar.text)
         }
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
 }
 
-// MARK:- UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 extension GeneralViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
@@ -146,7 +161,12 @@ extension GeneralViewController: UISearchBarDelegate {
         searchBar.searchTextField.resignFirstResponder()
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar,
+                   textDidChange searchText: String) {
         if searchText.isEmpty {
             viewModel.loadData(searchText: nil)
         }
