@@ -22,7 +22,7 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
     
     private lazy var blackView: UIView = {
         let titleFrame = UIView()
-        titleFrame.backgroundColor = .systemBackground
+        titleFrame.backgroundColor = .systemGray4
                 
         titleFrame.layer.shadowColor = UIColor.lightGray.cgColor
         titleFrame.layer.shadowOffset = CGSize(width: 0, height: 3.0)
@@ -36,7 +36,7 @@ final class TechnologyCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .white
         label.numberOfLines = 2
         
         return label
