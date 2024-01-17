@@ -143,6 +143,7 @@ extension GeneralViewController: UISearchBarDelegate {
         guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         
         viewModel.loadData(searchText: text)
+        searchBar.searchTextField.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
