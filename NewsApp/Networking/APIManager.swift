@@ -25,14 +25,14 @@ final class APIManager {
     static func getNews(from category: Category, page: Int,searchText: String?, completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
             var searchParameter = ""
             if let searchText = searchText {
-                searchParameter = "q=\(searchText)"
+                searchParameter = "&q=\(searchText)"
             }
         
             let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + searchParameter + "&apiKey=\(apiKey)"
             
             guard let url = URL(string: stringUrl) else { return }
             
-            let session = URLSession.shared.dataTask(with: url) { data, response, error in
+            let session = URLSession.shared.dataTask(with: url) { data, _, error in
                 handleResponse(data: data,
                                error: error,
                                completion: completion)
