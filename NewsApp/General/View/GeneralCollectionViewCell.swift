@@ -11,7 +11,8 @@ import SnapKit
 final class GeneralCollectionViewCell: UICollectionViewCell {
     // MARK: - GUI Variables
     private lazy var imageView: UIImageView = {
-       let view = UIImageView()
+        let view = UIImageView()
+        
         
         view.image = UIImage(named: "image") ?? UIImage.add
         
@@ -75,12 +76,12 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         
         blackView.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.bottom.leading.trailing.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
+            make.trailing.leading.equalTo(blackView).offset(5)
             make.top.bottom.equalTo(blackView)
-            make.leading.trailing.equalTo(blackView).offset(5)
         }
     }
 }
