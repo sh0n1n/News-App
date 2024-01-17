@@ -146,7 +146,9 @@ extension GeneralViewController: UISearchBarDelegate {
         searchBar.searchTextField.resignFirstResponder()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.loadData(searchText: nil)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.loadData(searchText: nil)
+        }
     }
 }
