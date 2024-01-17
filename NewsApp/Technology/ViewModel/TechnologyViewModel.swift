@@ -15,4 +15,16 @@ class TechnologyViewModel: NewsListViewModel {
             self?.handleResult(result)
         }
     }
+    
+    override func convertToCellViewModel(_ articles: [ArticleResponseObject]) {
+        var viewModels = articles.map { ArticleCellViewModel(article: $0)}
+    
+        if sections.isEmpty {
+            let firstSection = TableCollectionViewSection(items: [viewModels.removeFirst()])
+            let secondSection = TableCollectionViewSection(items: viewModels)
+            sections = [firstSection, secondSection]
+        } else {
+            sections[1].items += viewModels
+        }
+    }
 }
