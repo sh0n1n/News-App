@@ -81,10 +81,16 @@ class GeneralViewController: UIViewController {
             
         }
         
-        viewModel.showError = { error in
-            // TODO: show allert
-            print(error)
+        viewModel.showError = { [weak self] error in
+            self?.showErrorAlert(message: error)
         }
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setupUI() {

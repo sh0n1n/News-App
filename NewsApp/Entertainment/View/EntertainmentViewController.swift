@@ -65,9 +65,16 @@ class EntertainmentViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            // TODO: show allert
+            self.showErrorAlert(message: error)
             print(error)
         }
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setupUI() {
