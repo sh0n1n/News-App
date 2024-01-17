@@ -29,12 +29,19 @@ class NewsListViewModel: NewsListViewModelProtocol {
             }
         }
     }
-     var page = 0
+    
+    var page = 0
     var searchText: String? = nil
+    var private 
     
     // MARK: - Methods
     func loadData(searchText: String? = nil) {
-        page += 1
+        if self.searchText != searchText {
+            page = 1
+        } else {
+            page += 1
+        }
+        
         self.searchText = searchText
     }
     

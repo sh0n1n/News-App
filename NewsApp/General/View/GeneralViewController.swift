@@ -144,4 +144,8 @@ extension GeneralViewController: UISearchBarDelegate {
         
         viewModel.loadData(searchText: text)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.loadData(searchText: nil)
+    }
 }
