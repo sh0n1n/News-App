@@ -78,7 +78,7 @@ class EntertainmentViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         
         setupConstraints()
@@ -88,7 +88,7 @@ class EntertainmentViewController: UIViewController {
         
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(5)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
