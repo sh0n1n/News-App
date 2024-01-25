@@ -65,13 +65,20 @@ class EntertainmentViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            // TODO: show allert
+            self.showErrorAlert(message: error)
             print(error)
         }
     }
     
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     private func setupUI() {
-        view.backgroundColor = .systemGroupedBackground
+        view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         
         setupConstraints()
@@ -81,7 +88,7 @@ class EntertainmentViewController: UIViewController {
         
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(5)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
